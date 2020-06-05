@@ -1,32 +1,26 @@
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Image;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import java.awt.Button;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 import java.awt.Scrollbar;
+import java.text.NumberFormat;
 import java.util.Scanner;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.Choice;
-import javax.swing.SwingConstants;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
 public class Selfservice {
 
 	private JFrame frame;
-	private JTextField textliter;
-	private JTextField textbedrag;
+	private JTextField textFieldLiters;
+	private JTextField txtFieldBedrag;
 	private JTextField textkenteken;
 	private JButton btnBetaal;
 	double unliter;
@@ -95,8 +89,8 @@ public class Selfservice {
                     if (productPrijs=="Diesel") {
                     	//pay.getPriceDiesel();
                     	test2=diesel.prijs;
-                    	//if(Double.parseDouble(textbedrag.getText())/Double.parseDouble(productPrijs)) ||
-                    	//((Double.parseDouble(textliter.getText()) * test2);
+                    	//if(Double.parseDouble(txtFieldBedrag.getText())/Double.parseDouble(productPrijs)) ||
+                    	//((Double.parseDouble(textFieldLiters.getText()) * test2);
                     }
                     else if (productPrijs=="Unleaded") {
                     	//txtfld1.setText(Double.toString(unlead.prijs));
@@ -113,19 +107,19 @@ public class Selfservice {
 		BoxProduct.setBounds(136, 101, 96, 21);
 		frame.getContentPane().add(BoxProduct);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 216, 242, 137);
-		frame.getContentPane().add(textArea);
+		JTextArea textAreaDisplay = new JTextArea();
+		textAreaDisplay.setBounds(10, 216, 242, 137);
+		frame.getContentPane().add(textAreaDisplay);
 		
-		textliter = new JTextField();
-		textliter.setBounds(136, 72, 96, 19);
-		frame.getContentPane().add(textliter);
-		textliter.setColumns(10);
+		textFieldLiters = new JTextField();
+		textFieldLiters.setBounds(136, 72, 96, 19);
+		frame.getContentPane().add(textFieldLiters);
+		textFieldLiters.setColumns(10);
 		
-		textbedrag = new JTextField();
-		textbedrag.setColumns(10);
-		textbedrag.setBounds(136, 44, 96, 19);
-		frame.getContentPane().add(textbedrag);
+		txtFieldBedrag = new JTextField();
+		txtFieldBedrag.setColumns(10);
+		txtFieldBedrag.setBounds(136, 44, 96, 19);
+		frame.getContentPane().add(txtFieldBedrag);
 		
 		JLabel lblBedrag = new JLabel("BEDRAG SRD");
 		lblBedrag.setHorizontalAlignment(SwingConstants.LEFT);
@@ -184,38 +178,95 @@ public class Selfservice {
 		lblproduct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblproduct.setBounds(34, 101, 102, 13);
 		frame.getContentPane().add(lblproduct);
-		Image image = new ImageIcon(this.getClass().getResource("smurf01.png")).getImage();
+		//Image image = new ImageIcon(this.getClass().getResource("smurf01.png")).getImage();
 		
 		//
-	    // unliter = (textbedrag.getText());
+	    // unliter = (txtFieldBedrag.getText());
 		
 		
 		
 		btnBetaal = new JButton("PAY");
-		btnBetaal.addActionListener(new ActionListener() {
+//		btnBetaal.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//
+//
+//				unliter = Double.parseDouble(txtFieldBedrag.getText());
+//				un = (unliter/unlead.prijs);
+//				//un = Double.parseDouble(lstsoort.getItem(lstsoort.getSelectedIndex()));
+//
+//				textAreaDisplay.setText((BoxPomp.getItemAt(BoxPomp.getSelectedIndex()))+"  "
+//			+(BoxProduct.getItemAt(BoxProduct.getSelectedIndex()))+"   "
+//			+(textkenteken.getText())+"\n"+" SRD "+(txtFieldBedrag.getText()));
+//					textFieldLiters.setText(numberFormat.format((un)));
+//
+//
+//				System.out.println(numberFormat.format((un)));
+//
+//			}
+//		});
+
+		btnBetaal.addActionListener(new java.awt.event.ActionListener(){
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				unliter = Double.parseDouble(textbedrag.getText());
-				un = (unliter/unlead.prijs);
-				//un = Double.parseDouble(lstsoort.getItem(lstsoort.getSelectedIndex()));
-				
-				textArea.setText((BoxPomp.getItemAt(BoxPomp.getSelectedIndex()))+"  "
-			+(BoxProduct.getItemAt(BoxProduct.getSelectedIndex()))+"   "
-			+(textkenteken.getText())+"\n"+" SRD "+(textbedrag.getText()));
-					textliter.setText(numberFormat.format((un)));
-				
-				
-				System.out.println(numberFormat.format((un)));
-				
-				
+				Runnable runnable = new Runnable() {
+
+//					Double unliter = Double.parseDouble(txtFieldBedrag.getText());
+//					Double un = (unliter/unlead.prijs);
+					Double bedrag = Double.parseDouble((txtFieldBedrag.getText()));
+					Double aantalLiters = bedrag/unlead.prijs;
+					Double counter = 0.0;
+					NumberFormat numberFormat = new DecimalFormat("##.00");
+
+					@Override
+					public void run() {
+						while (true) {
+							while (counter <= aantalLiters /*&& bedrag == 0*/){
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										textAreaDisplay.setText((String) BoxPomp.getItemAt(BoxPomp.getSelectedIndex())
+																+ "\n"
+																+ "Bedrag: "
+																+ bedrag
+//																+ "\n" + aantalLiters
+																+ "\n"
+																+ "Liters: "
+//																+
+																+ String.valueOf(numberFormat.format(counter)));
+
+										textFieldLiters.setText(numberFormat.format(aantalLiters));
+									}
+								});
+
+								counter = counter + 0.01;
+//								bedrag = bedrag - bedrag/aantalLiters;
+								try {
+									Thread.sleep(15);
+								}catch (InterruptedException exception){
+									System.out.println(exception.toString());
+								}
+							}
+						}
+					}
+				};
+				new Thread(runnable).start();
 			}
 		});
+
+//		btnBetaal
+
 		btnBetaal.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnBetaal.setIcon(new ImageIcon("D:\\bk\\Leerwijzer_en_literatuur\\jaar2\\JAVA\\money.png"));
 		btnBetaal.setBounds(136, 159, 95, 47);
 		frame.getContentPane().add(btnBetaal);
-		
-		
-		
+	}
+
+	public static String nvl(String value, String alternateValue) {
+		if (value == null)
+			return alternateValue;
+
+		return value;
 	}
 }
