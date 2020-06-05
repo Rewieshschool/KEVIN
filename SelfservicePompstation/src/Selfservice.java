@@ -69,10 +69,10 @@ public class Selfservice {
 		
 		JComboBox BoxPomp = new JComboBox();
 		
-		BoxPomp.addItem("Pomp1");
-		BoxPomp.addItem("Pomp2");
-		BoxPomp.addItem("Pomp3");
-		BoxPomp.addItem("Pomp4");
+		BoxPomp.addItem("Pomp 1");
+		BoxPomp.addItem("Pomp 2");
+		BoxPomp.addItem("Pomp 3");
+		BoxPomp.addItem("Pomp 4");
 		BoxPomp.setBounds(136, 8, 96, 21);
 		frame.getContentPane().add(BoxPomp);
 		
@@ -228,8 +228,8 @@ public class Selfservice {
 									public void run() {
 										textAreaDisplay.setText((String) BoxPomp.getItemAt(BoxPomp.getSelectedIndex())
 																+ "\n"
-																+ "Bedrag: "
-																+ bedrag
+																+ "Bedrag: SRD "
+																+ numberFormat.format(bedrag)
 //																+ "\n" + aantalLiters
 																+ "\n"
 																+ "Liters: "
